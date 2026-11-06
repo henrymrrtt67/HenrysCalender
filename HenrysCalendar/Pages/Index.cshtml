@@ -1,0 +1,44 @@
+@page
+@model IndexModel
+@{ ViewData["Title"] = "Henry's Calendar"; }
+
+<h1>Henry's Calendar</h1>
+<p>Book a time with Henry. All times are Melbourne time. Appointments can be any length but must finish by midnight.</p>
+
+@if (Model.Message is not null) { <p class="ok">@Model.Message</p> }
+
+<form method="post">
+  <div asp-validation-summary="All" class="error"></div>
+
+  <label asp-for="Input.Name">Your name</label>
+  <input asp-for="Input.Name" />
+
+  <label asp-for="Input.Email">Email</label>
+  <input asp-for="Input.Email" />
+
+  <label asp-for="Input.Date">Date</label>
+  <input asp-for="Input.Date" />
+
+  <label asp-for="Input.StartTime">Start time</label>
+  <input asp-for="Input.StartTime" />
+
+  <label asp-for="Input.Minutes">Length (minutes)</label>
+  <input asp-for="Input.Minutes" type="number" min="1" max="1440" />
+
+  <label asp-for="Input.Notes">Notes (optional)</label>
+  <textarea asp-for="Input.Notes" rows="3"></textarea>
+
+  <button type="submit">Book appointment</button>
+</form>
+
+<h2>Already booked</h2>
+@if (!Model.Upcoming.Any()) { <p>Nothing booked yet.</p> }
+else
+{
+  <ul>
+  @foreach (var b in Model.Upcoming)
+  {
+    <li>@b.Start.ToString("ddd d MMM yyyy, h:mm tt") – @b.End.ToString("h:mm tt")</li>
+  }
+  </ul>
+}

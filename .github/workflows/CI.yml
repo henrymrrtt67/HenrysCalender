@@ -58,8 +58,8 @@ jobs:
     env:
       Solution_Name: Henrys-Calendar                         # Replace with your solution name, i.e. MyWpfApp.sln.
       Test_Project_Path: your-test-project-path                 # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
-      Wap_Project_Directory: your-wap-project-directory-name    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
-      Wap_Project_Path: your-wap-project-path                   # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
+      Wap_Project_Directory: HenrysCalendar    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
+      Wap_Project_Path: HenrysCalendar.csproj                  # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
 
     steps:
     - name: Checkout
@@ -76,7 +76,7 @@ jobs:
       run: dotnet restore
 
     - name: Build Project
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore --project ${{ env.Wap_Project_Path }}
     
     # Execute all unit tests in the solution
     #- name: Execute unit tests

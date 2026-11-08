@@ -75,7 +75,7 @@ jobs:
         dotnet-version: '8.0.x' # Change to '9.0.x' or your required version
     
     - name: Restore Dependencies
-      run: dotnet restore
+      run: dotnet restore --project ${{ env.Wap_Project_Path }}
 
     - name: Build Project
       run: dotnet build --configuration Release --no-restore --project ${{ env.Wap_Project_Path }}
@@ -85,7 +85,7 @@ jobs:
     #  run: dotnet test
 
     - name: Publish artifacts
-      run: dotnet publish --configuration Release --no-build --output ./publish
+      run: dotnet publish --configuration Release --no-build --project ${{ env.Wap_Project_Path }} --output ./publish
 
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v4

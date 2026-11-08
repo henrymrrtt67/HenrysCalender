@@ -65,6 +65,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: test
+      run: ls
 
     # Install the .NET Core workload
     - name: Setup .NET SDK

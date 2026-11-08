@@ -1,0 +1,18 @@
+name: Restrict Merges to Main
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-source-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify source branch is develop
+        if: github.head_ref != 'develop'
+        run: |
+          echo "ERROR: Merges into 'main' are only allowed from the 'develop' branch."
+          echo "Current source branch is: ${{ github.head_ref }}"
+          exit 1

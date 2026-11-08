@@ -65,8 +65,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: test
-      run: ls
 
     # Install the .NET Core workload
     - name: Setup .NET SDK
@@ -75,17 +73,17 @@ jobs:
         dotnet-version: '8.0.x' # Change to '9.0.x' or your required version
     
     - name: Restore Dependencies
-      run: dotnet restore ./HenrysCalendar/HenrysCalendar.csproj 
+      run: dotnet restore ${{ env.Wap_Project_Path }}
 
     - name: Build Project
-      run: dotnet build ./HenrysCalendar/HenrysCalendar.csproj --configuration Release --no-restore 
+      run: dotnet build ${{ env.Wap_Project_Path }} --configuration Release --no-restore 
     
     # Execute all unit tests in the solution
     #- name: Execute unit tests
     #  run: dotnet test
 
     - name: Publish artifacts
-      run: dotnet publish ./HenrysCalendar/HenrysCalendar.csproj  --configuration Release --no-build --output ./publish
+      run: dotnet publish ${{ env.Wap_Project_Path }}  --configuration Release --no-build --output ./publish
 
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v4
